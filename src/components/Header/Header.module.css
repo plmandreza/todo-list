@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #262626;
+}
+
+.newTask {
+    padding: 0 1rem;
+    gap: 0.5rem;
+    width: 100%;
+}
