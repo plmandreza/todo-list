@@ -1,25 +1,11 @@
-import { useState } from "react";
+import { Header } from "./components/Header"
 
-interface TesteProps {
-  age?: number;
-}
-
-interface AppProps extends TesteProps{
-  name: string;
-  address?: string; 
-}
-
-function App({name, age, address = "Valor padrão"}: AppProps) {
-  const [count, setCount] = useState(5)
-
+function App() {
   return (
     <>
-     <p>Você clicou {count} vezes</p>
-     <button onClick={() => setCount(count +1)}>
-      Clique aqui
-     </button>
+      <Header/>   
     </> 
-  )
+  ) // /> -> não recebe Children
 }
 
 export default App
