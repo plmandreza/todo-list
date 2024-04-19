@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface TesteProps {
   age?: number;
 }
@@ -7,14 +9,13 @@ interface AppProps extends TesteProps{
   address?: string; // ? atributo opcional (não é obrigatório receber informação)
 }
 
-type Teste = {
-  age: number;
-} // outra forma de criar interface -> type
-
 function App({name, age, address = "Valor padrão"}: AppProps) {
-console.log('name', name)
-console.log('age', age)
-console.log('address', address)
+  const [user, setUser] = useState(28) /* Estado (State) no React / hook (funcionalidade global para termos acesso aos estados da nossa aplicação, 
+  muda o valor da variável user para armazenar informação) -> useState ->  fica escopado no componente -> setUser é seu foco, a partir dela é que muda user */
+  
+  // alternativa não recomendada:
+  const user = "Teste"
+  user = "Bola" // alteração de state alterando a const diretamente -> faz com que seja carregado novamente, perdendo performance
 
   return (
     <>
