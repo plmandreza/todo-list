@@ -7,6 +7,10 @@ interface AppProps extends TesteProps{
   address?: string; // ? atributo opcional (não é obrigatório receber informação)
 }
 
+type Teste = {
+  age: number;
+} // outra forma de criar interface -> type
+
 function App({name, age, address = "Valor padrão"}: AppProps) {
 console.log('name', name)
 console.log('age', age)
