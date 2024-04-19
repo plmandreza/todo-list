@@ -5,6 +5,8 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <App 
+    name="Teste" age={19}
+    />
   </React.StrictMode>,
 )
