@@ -4,19 +4,25 @@ import styles from "./Item.module.css"
 export function Item() {
     return (
         <div className={styles.task}>
-            <button>
-            <Check size={12} />
-            </button>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-        <div className={styles.btnContainer}>
-            <button>
-            <Pencil size={12} />
+            <button className={styles.checkContainer}>
+                <span className={styles.checkbox}>
+                    <Check size={12} />
+                </span>
             </button>
 
-            <button>
-                <Trash size={12} />
-            </button>
-        </div>
+            <p className={styles.textChecked}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+            <div className={styles.btnContainer}>
+                <button>
+                    <Pencil className={styles.iconPencil} size={12} />
+                </button>
+
+                <div className={styles.btn}>
+                    <button>
+                        <Trash size={12} />
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
