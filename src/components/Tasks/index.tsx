@@ -1,36 +1,45 @@
 import { TaskProps } from "../../App";
 import { Item } from "../Item"
+import { Empty } from "./Empty";
+
 import styles from "./Tasks.module.css"
 
 interface TasksProps {
     tasks: TaskProps[];
+    onDeleteTask: (taskId: string) => void; // Retorna vazio. Função de deleção dentro do item.
+    onToggleTaskStatus: ({id, value}: {id: string, value: boolean}) => void;    
 }
-
-export function Tasks({tasks}: TasksProps) {
-    console.log('componente tasks =>', tasks)
-    const tasksLength = tasks.length
-    console.log('tasksLength =>', tasksLength)
+export function Tasks({ tasks, onDeleteTask, onToggleTaskStatus }: TasksProps) {
+    const tasksCounter = tasks.length
+    const checkedTasksCounter = tasks.filter(task => task.isChecked).length
 
     return (
         <section className={styles.tasks}>
-            <header className={styles.header}>
-                <div>
-                    <p>Tarefas adicionadas</p>
-                    <span>{tasksLength}</span>
-                </div>
+            {tasksCounter > 0 && (
+                 <header className={styles.header}>
+                 <div>
+                     <p>Tarefas adicionadas</p>
+                     <span>{tasksCounter}</span>
+                 </div>
+ 
+                 <div>
+                     <p className={styles.done}>Concluídas</p>
+                     <span>{checkedTasksCounter} / {tasksCounter}</span>
+                 </div>
+             </header>
+            )}
 
-                <div>
-                    <p className={styles.done}>Concluídas</p>
-                    <span>3/4</span>
-                </div>
-            </header>
-           
-            {tasks.map(task =>( // Mapeamento, retorna as informações internas. Acessa pelo índice também.
-                <p key={task.id}>{task.title}</p> // React precisa de um identificador único (reference/key) para cada elemento para listá-los
-            ))} 
-
-            <div>
-                <Item/>
+            <div className={styles.list}>
+                {tasks.map(task => ( // Mapeamento do array, retorna as informações internas. Acessa pelo índice também.
+                    <Item
+                        key={task.id}
+                        data={task}
+                        onDeleteTask={onDeleteTask}
+                        onToggleTaskStatus={onToggleTaskStatus}
+                    />
+                ))}
+                
+                {tasksCounter === 0 && <Empty/>}
             </div>
         </section>
     )

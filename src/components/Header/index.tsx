@@ -6,21 +6,18 @@ interface HeaderProps { // Objeto. Recebe propriedades Props de um determinado t
     onAddTask: (taskTitle: string) => void; // Propriedade que está sendo "retirada" do objeto
 }
 
-export function Header({onAddTask}: HeaderProps) {
+export function Header({ onAddTask }: HeaderProps) {
     const [newTask, setNewTask] = useState(""); // Estado é NewTask
-    console.log('addTask', onAddTask)
 
     function handleCreateNewTask(event: FormEvent) { // Cria a nova tarefa
         event.preventDefault(); // Não faz a renderização automática que deixa um ? na barra de url ao clicar no button
         onAddTask(newTask);
-        console.log('Criar nova tarefa:', newTask)
         setNewTask("");
     }
 
     function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) { // Acessa o valor digitado no input e altera o estado (State)
         event.target.setCustomValidity("");
         setNewTask(event.target.value);
-        console.log('NewTask', newTask);
     }
 
     function handleNewTaskInvalid(event: InvalidEvent<HTMLInputElement>) { // Valida o input de forma customizada

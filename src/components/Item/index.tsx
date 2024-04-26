@@ -1,25 +1,43 @@
 import { Check, Pencil, Trash } from "@phosphor-icons/react"
-import styles from "./Item.module.css"
+import { TaskProps } from "../../App";
+import styles from "./Item.module.css";
 
-export function Item() {
+interface ItemProps {
+    data: TaskProps;
+    onDeleteTask: (taskId: string) => void;
+    onToggleTaskStatus: ({ id, value }: { id: string, value: boolean }) => void;
+}
+export function Item({ data, onDeleteTask, onToggleTaskStatus }: ItemProps) {
+    const checkboxCheckedClassName = data.isChecked
+        ? styles["checkbox-checked"]
+        : styles["checkbox-unchecked"]; // Ternário -> Para acessar a variável de isChecked
+
+    function handleTaskToggle() {
+        onToggleTaskStatus({ id: data.id, value: !data.isChecked }); // ! Valor oposto, falso
+    }
+
+    function handleRemoveTask() {
+        onDeleteTask(data.id);
+    }
+
     return (
         <div className={styles.task}>
-            <button className={styles.checkContainer}>
-                <span className={styles.checkbox}>
-                    <Check size={12} />
+            <button className={styles.checkContainer} onClick={handleTaskToggle}>
+                <span className={`${styles.checkbox} ${checkboxCheckedClassName}`}>
+                    {data.isChecked && <Check size={12} />}
                 </span>
             </button>
 
-            <p className={styles.textChecked}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p className={data.isChecked ? styles.textChecked : ""}>{data.title}</p>
 
             <div className={styles.btnContainer}>
                 <button>
-                    <Pencil className={styles.iconPencil} size={12} />
+                    <Pencil className={styles.iconPencil} size={16} />
                 </button>
 
                 <div className={styles.btn}>
-                    <button>
-                        <Trash size={12} />
+                    <button onClick={handleRemoveTask}>
+                        <Trash size={16} />
                     </button>
                 </div>
             </div>
